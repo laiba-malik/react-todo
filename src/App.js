@@ -29,29 +29,54 @@ class App extends Component {
     const newTodo = {
       id: uuidv4(),
       title: title,
-      completed: false
+      completed: false,
+      date: new Date()
     }
 
     this.setState({ todos: [...this.state.todos, newTodo] })
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.todos.length !== this.state.todos.length) {
-      const json = JSON.stringify(this.state.todos);
+    if (prevState.todos !== this.state.todos) {
+      const json = JSON.stringify(this.state.todos)
       localStorage.setItem("todos", json)
     }
+
   }
 
   componentWillMount() { 
-    this.state.store = localStorage.getItem('todos')
-    if (this.state.store) {
+    let store = localStorage.getItem('todos')
+    if (store) {
       try {
-        this.state.todos = JSON.parse(this.state.store)
+        this.state.todos = JSON.parse(store)
       } catch(e) {
         localStorage.removeItem('todos')
       }
     }
   }
+
+  sortArray () {
+    this.state.todos.slice(
+      this.state.todos.sort(
+        (a, b) => b.date - a.date).reverse()
+    )
+  }
+
+  edit = (id, title) => {
+    this.setState({ 
+      todos: this.state.todos.splice( 
+        this.state.todos.find( todo => 
+          {
+            console.log(todo.id)
+            console.log(id)
+            if (todo.id === id) {
+              todo.title = title
+            }
+          }
+        ) 
+      ) 
+    })
+  } 
   
   state = {
     todos: [
@@ -68,10 +93,18 @@ class App extends Component {
       <div className="App">
         <Header />
         <Input addTodo = { this.addTodo }/>
+        <button
+          className = "sort"
+          onClick =  {(e) => this.sortArray(this.state.todos)}
+          >
+          Sort
+        </button>
         <Todos 
         todos = { this.state.todos } 
         markComplete = { this.markComplete }
         delete = { this.delete }
+        edit = { this.edit }
+        sortArray = { this.sortArray }
         />
       </div>
     )
