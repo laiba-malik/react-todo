@@ -67,8 +67,6 @@ class App extends Component {
       todos: this.state.todos.splice( 
         this.state.todos.find( todo => 
           {
-            console.log(todo.id)
-            console.log(id)
             if (todo.id === id) {
               todo.title = title
             }
