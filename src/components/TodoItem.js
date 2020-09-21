@@ -52,13 +52,14 @@ handleEditingChange(e) {
 
     var viewStyle={}
     var editStyle={}
+
     if(this.state.editing) {
         viewStyle.display="none"
     } else {editStyle.display="none"}
 
     return (
         <div>
-        <div style={ this.getStyle(), viewStyle } onDoubleClick={ this.handleEditing.bind(this)}>
+        <div style={ Object.assign ( this.getStyle(), viewStyle )} onDoubleClick={ this.handleEditing.bind(this)}>
             <p style= {todo}>
                 <input 
                 type="checkbox" 
@@ -78,7 +79,8 @@ handleEditingChange(e) {
         <input type="text" 
         style={editStyle}
         value={this.state.changedText}
-        onKeyDown={this.handleEditingDone.bind(this), this.props.edit.bind(this, this.props.todo.id, this.state.changedText)}
+        onKeyDown={this.handleEditingDone.bind(this),
+                   this.props.edit.bind(this, this.props.todo.id, this.state.changedText)}
         onChange={this.handleEditingChange.bind(this)}
         />
 
