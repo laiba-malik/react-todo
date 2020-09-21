@@ -14,7 +14,7 @@ class App extends Component {
       return todo
     }
       ) 
-    })
+    } )
   }
 
   delete = (id) => {
@@ -33,27 +33,26 @@ class App extends Component {
     }
 
     this.setState({ todos: [...this.state.todos, newTodo] })
-    // this.saveTodos()
-
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(123)
     if (prevState.todos.length !== this.state.todos.length) {
-      console.log(345)
       const json = JSON.stringify(this.state.todos);
-      console.log(json)
-      localStorage.setItem("todos", json);
+      localStorage.setItem("todos", json)
+    }
+  }
+
+  componentWillMount() { 
+    this.state.store = localStorage.getItem('todos')
+    if (this.state.store) {
+      try {
+        this.state.todos = JSON.parse(this.state.store)
+      } catch(e) {
+        localStorage.removeItem('todos')
+      }
     }
   }
   
-
-  saveTodos = () => {
-    const parsed = JSON.stringify(this.state.todos)
-    // console.log(this.state.todos)
-    localStorage.setItem("todos", parsed)
-  }
-
   state = {
     todos: [
       {
