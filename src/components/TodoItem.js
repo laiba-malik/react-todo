@@ -13,16 +13,16 @@ class TodoItem extends Component {
   }
 
   componentDidMount() {
-      this.setState({changedText: this.props.todo.title})
+      this.setState({ changedText: this.props.todo.title })
   }
 
   handleEditing(e) {
-      this.setState({editing: true, changedText: this.props.todo.title })
+      this.setState({ editing: true, changedText: this.props.todo.title })
   }
 
   handleEditingDone(e) {
-      if (e.keyCode === 13)
-        this.setState({editing: false})
+      if ( e.keyCode === 13 )
+        this.setState({ editing: false })
 }
 
 handleEditingChange(e) {
@@ -53,37 +53,38 @@ handleEditingChange(e) {
     var viewStyle={}
     var editStyle={}
 
-    if(this.state.editing) {
-        viewStyle.display="none"
-    } else {editStyle.display="none"}
+    if( this.state.editing ) { viewStyle.display = "none" } 
+    else { editStyle.display="none" }
 
     return (
         <div>
-        <div style={ Object.assign ( this.getStyle(), viewStyle )} onDoubleClick={ this.handleEditing.bind(this)}>
-            <p style= {todo}>
+
+        <div style={ Object.assign ( this.getStyle(), viewStyle )} onDoubleClick={ this.handleEditing.bind(this) }>
+            <p style= { todo }>
                 <input 
-                type="checkbox" 
-                onChange={ this.props.markComplete.bind (this, id)}/> { " " }
+                type = "checkbox" 
+                onChange = { this.props.markComplete.bind (this, id)}/> { " " }
                 <span>
                     { this.state.changedText }
                 </span>
                 <button 
-                style={ del }
+                style = { del }
                 className = "del"
-                onClick= { this.props.delete.bind (this, id)}
+                onClick = { this.props.delete.bind( this, id )}
                 >
-                    X
+                X
                 </button>
             </p>
         </div>
-        <input type="text" 
-        style={editStyle}
-        value={this.state.changedText}
-        onKeyDown={this.handleEditingDone.bind(this),
-                   this.props.edit.bind(this, this.props.todo.id, this.state.changedText)}
-        onChange={this.handleEditingChange.bind(this)}
-        />
 
+        <input
+        type = "text" 
+        style = {editStyle}
+        value = {this.state.changedText}
+        onKeyDown = { this.handleEditingDone.bind(this),
+                      this.props.edit.bind( this, this.props.todo.id, this.state.changedText )}
+        onChange = { this.handleEditingChange.bind( this )}
+        />
     </div>
     )
   }

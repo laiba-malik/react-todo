@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class Input extends Component {
-  state ={
+  state = {
       title: ""
   }
 
@@ -11,7 +11,7 @@ class Input extends Component {
 
   addTodo = (e) => {
       e.preventDefault()
-      this.props.addTodo(this.state.title)
+      this.props.addTodo( this.state.title )
       this.setState({ title: "" })
   }
 
@@ -33,8 +33,8 @@ class Input extends Component {
             type = "text" 
             name = "title" 
             placeholder = "Add a Todo..." 
-            value = {this.state.title}
-            onChange = {this.changeTitle}
+            value = { this.state.title }
+            onChange = { this.changeTitle }
             />
             <input
             className = "btn"
