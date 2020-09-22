@@ -6,7 +6,11 @@ class Todos extends Component {
   render () { 
     return (
         <div>
-
+          <button
+          onClick ={ this.props.sortArray.bind(this) }
+          >
+            Sort
+          </button>
         { this.props.todos.map((todo) => (
             <TodoItem
             key = { todo.id } 

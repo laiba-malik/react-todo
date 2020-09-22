@@ -81,8 +81,8 @@ handleEditingChange(e) {
         type = "text" 
         style = {editStyle}
         value = {this.state.changedText}
-        onKeyDown = { this.handleEditingDone.bind(this),
-                      this.props.edit.bind( this, this.props.todo.id, this.state.changedText )}
+        onKeyDown = {Object.assign( this.handleEditingDone.bind(this),
+                      this.props.edit.bind( this, this.props.todo.id, this.state.changedText ))}
         onChange = { this.handleEditingChange.bind( this )}
         />
     </div>

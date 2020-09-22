@@ -6,6 +6,15 @@ import {v4 as uuidv4 } from "uuid"
 import './App.css'
 
 class App extends Component {
+  state = {
+    todos: [
+      {
+        id: 1,
+        title: "Todo 1",
+        completed: false
+      }
+    ]
+  }
   markComplete = (id) => {
     this.setState({ 
       todos: this.state.todos.map(todo => {
@@ -32,11 +41,26 @@ class App extends Component {
       id: uuidv4(),
       title: title,
       completed: false,
-      date: new Date()
+      date: new Date().toLocaleTimeString()
     }
 
     this.setState({ todos: [...this.state.todos, newTodo] })
   }
+
+  sortArray () {
+    try {
+      if (this.state.todos)  {
+        this.setState({
+          todos: this.state.todos.slice(
+            this.state.todos.sort(
+              (a, b) => a.date-b.date).reverse()
+            ) }
+          )
+        }
+      }
+      catch(e) {console.log(e)}
+  }
+
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.todos !== this.state.todos) {
@@ -46,7 +70,7 @@ class App extends Component {
 
   }
 
-  componentWillMount() { 
+  UNSAFE_componentWillMount() { 
     let store = localStorage.getItem('todos')
     if (store) {
       try {
@@ -57,12 +81,6 @@ class App extends Component {
     }
   }
 
-  sortArray () {
-    this.state.todos.slice(
-      this.state.todos.sort(
-        (a, b) => b.date - a.date).reverse()
-    )
-  }
 
   edit = (id, title) => {
     this.setState({ 
@@ -76,16 +94,6 @@ class App extends Component {
         ) 
       ) 
     })
-  } 
-  
-  state = {
-    todos: [
-      {
-        id: 1,
-        title: "Todo 1",
-        completed: false
-      }
-    ]
   }
 
   render () {
@@ -93,18 +101,12 @@ class App extends Component {
       <div className="App">
         <Header />
         <Input addTodo = { this.addTodo }/>
-        <button
-          className = "sort"
-          onClick =  {(e) => this.sortArray(this.state.todos)}
-          >
-          Sort
-        </button>
         <Todos 
         todos = { this.state.todos } 
         markComplete = { this.markComplete }
         delete = { this.delete }
         edit = { this.edit }
-        sortArray = { this.sortArray }
+        sortArray = { this.sortArray.bind(this) }
         />
       </div>
     )
