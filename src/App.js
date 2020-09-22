@@ -53,7 +53,7 @@ class App extends Component {
         this.setState({
           todos: this.state.todos.slice(
             this.state.todos.sort(
-              (a, b) => a.date-b.date).reverse()
+              (a, b) => console.log(a.date-b.date)).reverse()
             ) }
           )
         }
@@ -74,7 +74,7 @@ class App extends Component {
     let store = localStorage.getItem('todos')
     if (store) {
       try {
-        this.state.todos = JSON.parse(store)
+        this.setState({ todos: JSON.parse(store) })
       } catch(e) {
         localStorage.removeItem('todos')
       }
@@ -105,7 +105,7 @@ class App extends Component {
         todos = { this.state.todos } 
         markComplete = { this.markComplete }
         delete = { this.delete }
-        edit = { this.edit }
+        edit = { this.edit.bind(this) }
         sortArray = { this.sortArray.bind(this) }
         />
       </div>

@@ -20,7 +20,7 @@ class TodoItem extends Component {
       this.setState({ editing: true, changedText: this.props.todo.title })
   }
 
-  handleEditingDone(e) {
+  handleEditingDone(e, id) {
       if ( e.keyCode === 13 )
         this.setState({ editing: false })
 }
@@ -40,7 +40,7 @@ handleEditingChange(e) {
         cursor: "pointer",
         float: "right"
     }
-    const { id, title } = this.props.todo
+    const { id } = this.props.todo
 
     const todo = {
         backgroundColor: "#c8a2c8",
@@ -77,14 +77,17 @@ handleEditingChange(e) {
             </p>
         </div>
 
+        <form onSubmit = {this.props.edit.bind( this, this.props.todo.id, this.state.changedText )}>
         <input
         type = "text" 
         style = {editStyle}
         value = {this.state.changedText}
-        onKeyDown = {Object.assign( this.handleEditingDone.bind(this),
-                      this.props.edit.bind( this, this.props.todo.id, this.state.changedText ))}
+        onKeyDown = { 
+                      this.handleEditingDone.bind(this)
+                    }
         onChange = { this.handleEditingChange.bind( this )}
         />
+        </form>
     </div>
     )
   }
