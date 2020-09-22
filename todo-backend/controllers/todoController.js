@@ -14,9 +14,7 @@ exports.createTodo = async(req, res, next) => {
 }
 
 exports.getTodos = async(req, res, next) => {
-    console.log(123)
     try {
-        console.log(123)
         const todos = await db.Todo.find({})
         return success(res, todos)
     } catch (err) {
