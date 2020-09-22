@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     todos: []
   }
+  
   markComplete = async (id) => {
   const payload = {
     completed: !this.state.todos.find(todo => todo._id === id).completed,
@@ -52,27 +53,6 @@ class App extends Component {
       catch(e) {console.log(e)}
   }
 
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.todos !== this.state.todos) {
-      const json = JSON.stringify(this.state.todos)
-      localStorage.setItem("todos", json)
-    }
-
-  }
-
-  UNSAFE_componentWillMount() { 
-    let store = localStorage.getItem('todos')
-    if (store) {
-      try {
-        this.setState({ todos: JSON.parse(store) })
-      } catch(e) {
-        localStorage.removeItem('todos')
-      }
-    }
-  }
-
-
   edit = async(id, title) => {
     const payload = {
       title: title
@@ -80,18 +60,6 @@ class App extends Component {
       const updatedTodo = await API.updateTodo(id, payload)
       this.setState(this.state.todos.map(todo => (todo._id === id ? updatedTodo : todo)))
     }
-    // this.setState({ 
-    //   todos: this.state.todos.splice( 
-    //     this.state.todos.find( todo => 
-    //       {
-    //         if (todo._id === id) {
-    //           todo.title = title
-    //         }
-    //       }
-    //     ) 
-    //   ) 
-    // })
-  // }
 
   componentDidMount() {
     axios.get("/todos")
@@ -99,7 +67,6 @@ class App extends Component {
   }
 
   render () {
-
     return (
       <div className="App">
         <Header />
