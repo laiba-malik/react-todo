@@ -4,18 +4,21 @@ function success(res, payload) {
     return res.status(200).json(payload)
 }
 
-exports.createTodo = async(req, res, next) => {
+exports.createTodo = async (req, res, next) => {
     try {
+        console.log(req.body)
         const todo = await db.Todo.create(req.body)
-        return success (res, todo)
-    } catch (err) {
-        next({ status: 400, message: "failed to create Todo"})
+        // console.log(JSON.stringify(todo))
+        return success(res, todo)
+        } catch (err) {
+        next({ status: 400, message: "failed to create todo" })
     }
-}
+  }
 
 exports.getTodos = async(req, res, next) => {
     try {
         const todos = await db.Todo.find({})
+        console.log(todos)
         return success(res, todos)
     } catch (err) {
         next({ status:400, message: "failed to get todos"})
@@ -28,7 +31,6 @@ exports.updateTodo = async(req, res, next) => {
             req.params.id, 
             req.body, 
             {new:true})
-        console.log(todo)
         return success(res, todo)
     } catch (err) {
         next({ status:400, message: "failed to update the todo"})
