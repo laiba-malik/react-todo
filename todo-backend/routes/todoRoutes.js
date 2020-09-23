@@ -8,4 +8,4 @@ router.route('/todos').post(todoController.createTodo)
 router.route('/todos/:id').put(todoController.updateTodo)
 router.route('/todos/:id').delete(todoController.deleteTodo)
 
-module.exports = router;
+module.exports = router

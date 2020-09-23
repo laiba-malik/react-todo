@@ -10,7 +10,6 @@ const todoRoute = require("./routes/todoRoutes");
 
 const cors = require("cors")
 app.use(cors())
-// app.options('*', cors());
 
 app.use(bodyParser.json()) 
 

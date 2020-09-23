@@ -8,9 +8,7 @@ import './App.css'
 
 class App extends Component {
   state = {
-    todos: [
-      {}
-    ]
+    todos: []
   }
   
   markComplete = async (id) => {
@@ -31,15 +29,23 @@ class App extends Component {
   }
 
   addTodo = async (title) => {
-    
-  if (!title) {
-    alert("You did not enter a title!")
-    return
-  }
 
-  const newTodo = await API.createTodo(title)
-  console.log(newTodo)
-  this.setState({ todos: [...this.state.todos, newTodo] }) 
+    if (!title) {
+      alert("You did not enter a title!")
+      return
+    }
+
+    const newTodo = {
+      title: title
+    }
+
+    axios.post("/todos", newTodo)
+    .then(res => {
+      this.setState({ todos: [...this.state.todos, res.config.data] })})
+
+  // const newTodo = await API.createTodo(title)
+  // console.log(newTodo)
+  // this.setState({ todos: [...this.state.todos, newTodo] }) 
 }
 
 

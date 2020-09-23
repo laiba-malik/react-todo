@@ -1,9 +1,8 @@
 import axios from "axios"
 
 async function createTodo(title) {
-  const {data: newTodo} = await axios.post(`/todos`, {
-    title
-  })
+  const { data: newTodo } = await axios.post(`/todos`, title)
+  console.log(newTodo)
   return newTodo
 }
 

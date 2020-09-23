@@ -1,7 +1,9 @@
 const mongoose = require("mongoose")
-var uuid = require('node-uuid');
 
 const todoSchema = new mongoose.Schema({
+    id: {
+        type: String
+    },
     title: {
         type: String,
         unique: true, 

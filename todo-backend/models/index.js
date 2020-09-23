@@ -9,18 +9,18 @@ const mongoose = require("mongoose")
 // useCreateIndex: true,
 // useUnifiedTopology:true,
 // useFindAndModify: false
-// }).then(() => console.log("Database connection successful!"))
+// }).then(() => console.log("Database connection successful!"));
 
 
 //MongoDB Local 
-const db = "mongodb://127.0.0.1:27017/react-todo"
-mongoose.connect(db, {
-useNewUrlParser: true,
-useCreateIndex: true,
-useUnifiedTopology:true,
-useFindAndModify: false
-}).then(console.log("Connected to Local MongoDB"))
-// mongoose.set("debug", true) 
-// mongoose.Promise = Promise 
+const db = mongoose.connect("mongodb://localhost:27017/react-todo", {
+    keepAlive: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+})
+.then(() => console.log("Local Database Connection Successful"))
+.catch(err => console.log(err)) 
 
 module.exports.Todo = require("./todo") 

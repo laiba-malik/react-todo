@@ -1,4 +1,5 @@
 const db = require("../models/")
+var uuid = require('node-uuid');
 
 function success(res, payload) {
     return res.status(200).json(payload)
@@ -6,19 +7,18 @@ function success(res, payload) {
 
 exports.createTodo = async (req, res, next) => {
     try {
-        console.log(req.body)
-        const todo = await db.Todo.create(req.body)
-        // console.log(JSON.stringify(todo))
+        console.log('req', req.body)
+        const todo = await db.Todo.create({title: req.body.title, id: uuid.v4()})
         return success(res, todo)
         } catch (err) {
-        next({ status: 400, message: "failed to create todo" })
+            console.log('érr', err)
+        next({ status: 400, message: "failed to create a todo" })
     }
   }
 
 exports.getTodos = async(req, res, next) => {
     try {
         const todos = await db.Todo.find({})
-        console.log(todos)
         return success(res, todos)
     } catch (err) {
         next({ status:400, message: "failed to get todos"})
